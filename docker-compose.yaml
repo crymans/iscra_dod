@@ -1,0 +1,21 @@
+services:
+  bot:
+    build: .
+    container_name: event_bot
+    env_file:
+      - .env
+    volumes:
+      - bot_data:/app/data
+      - ./bot:/app/bot
+    networks:
+      - bot_network
+    restart: unless-stopped
+    command: >
+      sh -c "python -m bot.main"
+
+volumes:
+  bot_data:
+
+networks:
+  bot_network:
+    driver: bridge
